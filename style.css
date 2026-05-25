@@ -85,3 +85,13 @@ img {
     text-align: right;
     padding: 3em 3em;
 }
+.secret-link{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.secret-link:hover{
+    opacity: 0.7;
+}

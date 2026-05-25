@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Secret Challenge</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.challenge-box{
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    text-align: center;
+    width: 600px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+h1{
+    font-size: 40px;
+    margin-top: 0;
+}
+
+p{
+    font-size: 22px;
+}
+
+input{
+    font-size: 20px;
+    padding: 10px;
+    width: 200px;
+}
+
+button{
+    font-size: 20px;
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="challenge-box">
+    <h1>Secret Challenge</h1>
+    <p>Solve this to see the secret image.</p>
+
+    <p>What is the smallest number that increases by 12 when it is flipped and turned upside-down?</p>
+
+    <input type="text" id="answer">
+    <button onclick="checkAnswer()">Submit</button>
+
+    <p id="result"></p>
+</div>
+
+<script>
+function checkAnswer() {
+    let answer = document.getElementById("answer").value;
+
+    if(answer == "86") {
+        window.location.href = "secret.html";
+    } else {
+        document.getElementById("result").innerText = "Wrong answer! Try again.";
+    }
+}
+</script>
+
+</body>
+</html>

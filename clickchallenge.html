@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Challenge</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6fd8, #3813c2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.12);
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+            text-align: center;
+            width: 420px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        #timerCircle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 8px solid rgba(255,255,255,0.4);
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: 600;
+            color: white;
+            position: relative;
+        }
+
+        #timerFill {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 8px solid #00eaff;
+            clip-path: polygon(50% 50%, 0 0, 100% 0);
+            transform: rotate(0deg);
+            transition: transform 0.1s linear;
+        }
+
+        #count {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 18px 40px;
+            font-size: 22px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #00eaff, #0078ff);
+            color: white;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        #retry {
+            display: none;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #ff4e50, #f9d423);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Click 65 times in 10 seconds!</h1>
+
+    <div id="timerCircle">
+        <div id="timerFill"></div>
+        <span id="timer">10.0</span>
+    </div>
+
+    <h2 id="count">Clicks: 0</h2>
+
+    <button id="clickBtn">CLICK!</button>
+    <button id="retry" onclick="location.reload()">Try Again</button>
+</div>
+
+<script>
+let clicks = 0;
+let timeLeft = 10.0;
+let timerStarted = false;
+
+const clickBtn = document.getElementById("clickBtn");
+const timerDisplay = document.getElementById("timer");
+const countDisplay = document.getElementById("count");
+const retryBtn = document.getElementById("retry");
+const timerFill = document.getElementById("timerFill");
+
+clickBtn.addEventListener("click", () => {
+    if (!timerStarted) {
+        timerStarted = true;
+        startTimer();
+    }
+
+    clicks++;
+    countDisplay.textContent = "Clicks: " + clicks;
+
+    if (clicks >= 65) {
+        window.location.href = "fastclickers.html";
+    }
+});
+
+function startTimer() {
+    const interval = setInterval(() => {
+        timeLeft -= 0.1;
+        timerDisplay.textContent = timeLeft.toFixed(1);
+
+        let progress = (1 - timeLeft / 10) * 360;
+        timerFill.style.transform = `rotate(${progress}deg)`;
+
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+            clickBtn.disabled = true;
+
+            if (clicks < 65) {
+                retryBtn.style.display = "inline-block";
+            }
+        }
+    }, 100);
+}
+</script>
+
+</body>
+</html>
